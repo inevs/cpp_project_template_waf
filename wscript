@@ -11,14 +11,15 @@ def build(bld):
 	test(bld)
 
 def assemble_executable(bld):
+	bld.stlib(
+		source=bld.path.ant_glob('src/cpp/*.cpp'),
+		includes='src/cpp',
+		target='hlib')
 	bld.program(
 		source='src/main/main.cpp', 
 		target=APPNAME,
 		includes='src/cpp',
 		use='hlib')
-	bld.stlib(
-		source=bld.path.ant_glob('src/cpp/*.cpp'),
-		target='hlib')
 
 def test(bld):
 	bld.stlib(
@@ -34,8 +35,8 @@ def test(bld):
 		features='test',
 		source=bld.path.ant_glob('src/test/*.cpp'),
 		target='unittests',
-		includes=['contrib/gmock/include', 'contrib/gtest/include', 'hlib'],
-		use=['gmock', 'src'])
+		includes=['contrib/gmock/include', 'contrib/gtest/include', 'src/cpp'],
+		use=['gmock', 'hlib'])
 
 	from waflib.Tools import waf_unit_test
 	bld.add_post_fun(waf_unit_test.summary)

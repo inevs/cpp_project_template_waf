@@ -1,6 +1,8 @@
 #include "gmock/gmock.h"
+#include "hello.h"
 
 TEST(Hello, ReturnsHelloString) {
-	std::string msg = "Hello";
-	ASSERT_THAT(msg, testing::Eq("Hello"));
+	Hello hello;
+	std::string msg = hello.sayHello();
+	ASSERT_THAT(msg, testing::Eq("Hello World\n"));
 }
