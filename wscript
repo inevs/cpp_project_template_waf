@@ -33,6 +33,7 @@ def test(bld):
 		use='gtest')
 	bld.program(
 		features='test',
+		cxxflags='-std=c++11',
 		source=bld.path.ant_glob('src/test/*.cpp'),
 		target='unittests',
 		includes=['contrib/gmock/include', 'contrib/gtest/include', 'src/cpp'],
